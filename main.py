@@ -2,6 +2,7 @@ from fastapi import FastAPI, Form, Request
 from typing import Annotated
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from mangum import Mangum
 import requests
 from bs4 import BeautifulSoup
@@ -14,6 +15,9 @@ app = FastAPI()
 handler = Mangum(app)
 
 templates = Jinja2Templates(directory="templates")
+
+# Mount the static directory to serve static files
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 chat_log = [{
     'role': 'system',
