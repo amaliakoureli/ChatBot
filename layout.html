@@ -15,20 +15,48 @@
             align-items: center;
         }
 
-        .image-demo {
-            position: absolute;
-            top: 80px;
-            left: 10px;
-            font-size: 1rem;
-            margin: 0;
-        }
-
         .top-right {
             position: absolute;
             top: 10px;
             right: 280px;
             font-size: 1.5rem;
             margin: 0;
+            font-weight: bold;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            top: 130px;
+            left: 100px;
+        }
+
+        .image-demo img{
+            margin-right: 20px;
+            height: 350px; /* Change this value to your desired height */
+            width: 300px;
+        }
+
+        .university-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: left; /* Center align text */
+            padding-bottom: 5px;
+        }
+        .blue-line {
+            border-bottom: 10px solid #7FB3D5;
+            width: 100%; /* Full width */
+            margin: 5px 0; /* Add some spacing above and below the line */
+        }
+        .department-name {
+            font-size: 1.1rem; /* Adjust the size as needed */
+            font-weight: bold; /* Adjust the weight if needed */
+            margin-top: 10px;/* Add some spacing from the blue line */
+            text-align: left; /* Center align text */
         }
 
         .chat-container {
@@ -42,7 +70,7 @@
             box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
             padding: 20px;
             position: absolute;
-            top: 80px;
+            top: 80px; /* Adjust the position as needed */
             right: 80px;
             font-size: 0.9rem;
         }
@@ -137,11 +165,24 @@
 </head>
 <body>
 
-    <div class="image-demo">
-        <img src="logo.png" alt="Democritus" width="500" height="550">
-    </div>
     <div class="top-right">
         <h4>Ακαδημαϊκός Βοηθός</h4>
+    </div>
+
+    <div class="header-container">
+        <div class="image-demo">
+            <img src="{{ url_for('static', path='images/logo.png') }}" alt="Logo" height="100">
+        </div>
+        <div class="university-name">
+            <div>ΔΗΜΟΚΡΙΤΕΙΟ</div>
+            <div>ΠΑΝΕΠΙΣΤΗΜΙΟ</div>
+            <div>ΘΡΑΚΗΣ</div>
+            <div class="blue-line"></div>
+            <div class="department-name">
+                <div>ΣΧΟΛΗ ΘΕΤΙΚΩΝ ΕΠΙΣΤΗΜΩΝ</div>
+                <div>ΤΜΗΜΑ ΠΛΗΡΟΦΟΡΙΚΗΣ</div>
+            </div>
+        </div>
     </div>
 
     <div class="chat-container">
