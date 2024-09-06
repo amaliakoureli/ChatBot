@@ -7,6 +7,7 @@ from mangum import Mangum
 import requests
 from bs4 import BeautifulSoup
 from openai import OpenAI
+import uvicorn
 
 # Ensure you have the correct OpenAI API key here
 client = OpenAI(api_key="sk-proj-a9yr7E5zTCKFmfXI4naIT3BlbkFJuPKavlMNNS6Oew2hLxzY")
@@ -85,6 +86,5 @@ async def chat(request: Request, user_input: Annotated[str, Form()]):
 
 
 if __name__ == "__main__":
-    import uvicorn
 
     uvicorn.run(app, host="0.0.0.0", port=8000)
