@@ -1,176 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Chatbot</title>
+    <meta charset="UTF-8"> <!-- Ορίζει την κωδικοποίηση χαρακτήρων σε UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Ρύθμιση του viewport για ορθή εμφάνιση σε κινητές συσκευές -->
+    <title>Chatbot</title> <!-- Τίτλος της σελίδας -->
+     <!—Χρήση CSS για την προσαρμογή του στυλ της ιστοσελίδας-->
     <style>
+        /* Γενικό στυλ για το σώμα της σελίδας */
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #EAF2F8;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+            font-family: Arial, sans-serif; /* Ορίζει τη γραμματοσειρά */
+            margin: 0; /* Μηδενίζει τα περιθώρια */
+            padding: 0; /* Μηδενίζει την απόσταση */
+            background-color: #EAF2F8; /* Χρώμα φόντου */
+            display: flex; /* Χρήση flexbox */
+            flex-direction: column; /* Στοίχιση σε στήλες */
+            align-items: center; /* Κεντρική στοίχιση περιεχομένου */
 
+        /* Στυλ για το πάνω δεξιά μέρος της σελίδας */
         .top-right {
-            position: absolute;
-            top: 10px;
-            right: 280px;
-            font-size: 1.5rem;
-            margin: 0;
-            font-weight: bold;
+            position: absolute;  /* Απόλυτη τοποθέτηση */
+            top: 10px;  /* Απόσταση από την κορυφή */
+            right: 280px;  /* Απόσταση από τη δεξιά πλευρά */
+            font-size: 1.5rem;  /* Μέγεθος γραμματοσειράς */
+            margin: 0;  /* Καταργεί το προεπιλεγμένο περιθώριο */
+            font-weight: bold;  /* Έντονη γραφή */
         }
 
+        /* Στυλ για το header που περιέχει το λογότυπο και το όνομα του πανεπιστημίου */
         .header-container {
-            display: flex;
-            align-items: center;
-            position: absolute;
-            top: 130px;
-            left: 100px;
+            display: flex;  /* Χρήση flexbox για διάταξη */
+            align-items: center;  /* Κεντράρισμα περιεχομένου */
+            position: absolute;  /* Απόλυτη τοποθέτηση */
+            top: 130px;  /* Απόσταση από την κορυφή */
+            left: 100px;  /* Απόσταση από την αριστερή πλευρά */
         }
 
-        .image-demo img{
-            margin-right: 20px;
-            height: 350px; /* Change this value to your desired height */
-            width: 300px;
+        /* Στυλ για το λογότυπο του πανεπιστημίου */
+        .image-demo img {
+            margin-right: 20px;  /* Δεξί περιθώριο */
+            height: 350px;  /* Ύψος εικόνας */
+            width: 300px;  /* Πλάτος εικόνας */
         }
 
+        /* Στυλ για το όνομα του πανεπιστημίου */
         .university-name {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #000;
-            display: flex;
-            flex-direction: column;
-            align-items: left; /* Center align text */
-            padding-bottom: 5px;
+            font-size: 1.8rem;  /* Μέγεθος γραμματοσειράς */
+            font-weight: bold;  /* Έντονη γραφή */
+            color: #000;  /* Χρώμα κειμένου */
+            display: flex;  /* Χρήση flexbox για διάταξη */
+            flex-direction: column;  /* Καθορισμός διάταξης στηλών */
+            align-items: left;  /* Ευθυγράμμιση αριστερά */
+            padding-bottom: 5px;  /* Εσωτερικό περιθώριο κάτω */
         }
+
+        /* Στυλ για την μπλε γραμμή κάτω από το πανεπιστήμιο */
         .blue-line {
-            border-bottom: 10px solid #7FB3D5;
-            width: 100%; /* Full width */
-            margin: 5px 0; /* Add some spacing above and below the line */
+            border-bottom: 10px solid #7FB3D5;  /* Κάτω περίγραμμα */
+            width: 100%;  /* Πλάτος γραμμής */
+            margin: 5px 0;  /* Κάτω και πάνω περιθώριο */
         }
+
+        /* Στυλ για το όνομα του τμήματος */
         .department-name {
-            font-size: 1.1rem; /* Adjust the size as needed */
-            font-weight: bold; /* Adjust the weight if needed */
-            margin-top: 10px;/* Add some spacing from the blue line */
-            text-align: left; /* Center align text */
+            font-size: 1.1rem;  /* Μέγεθος γραμματοσειράς */
+            font-weight: bold;  /* Έντονη γραφή */
+            margin-top: 10px;  /* Άνω περιθώριο */
+            text-align: left;  /* Ευθυγράμμιση αριστερά */
         }
 
+        /* Στυλ για το container του chat */
         .chat-container {
-            display: flex;
-            flex-direction: column;
-            width: 40%;
-            height: 65vh; /* Set a fixed height for the chat container */
-            margin-top: 1rem;
-            background-color: #A9CCE3;
-            border-radius: 10px;
-            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-            padding: 20px;
-            position: absolute;
-            top: 80px; /* Adjust the position as needed */
-            right: 80px;
-            font-size: 0.9rem;
+            display: flex;  /* Χρήση flexbox για διάταξη */
+            flex-direction: column;  /* Καθορισμός διάταξης στηλών */
+            width: 40%;  /* Πλάτος του chat */
+            height: 65vh;  /* Ύψος του chat */
+            margin-top: 1rem;  /* Άνω περιθώριο */
+            background-color: #A9CCE3;  /* Χρώμα φόντου */
+            border-radius: 10px;  /* Στρογγυλεμένες γωνίες */
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);  /* Σκιά */
+            padding: 20px;  /* Εσωτερικό περιθώριο */
+            position: absolute;  /* Απόλυτη τοποθέτηση */
+            top: 80px;  /* Απόσταση από την κορυφή */
+            right: 80px;  /* Απόσταση από τη δεξιά πλευρά */
+            font-size: 0.9rem;  /* Μέγεθος γραμματοσειράς */
         }
 
+        /* Στυλ για το chat box */
         .chat-box {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding-bottom: 20px;
+            flex-grow: 1;  /* Επιτρέπει στο chat box να μεγαλώνει */
+            overflow-y: auto;  /* Κύλιση αν το περιεχόμενο ξεπερνά το ύψος */
+            padding-bottom: 20px;  /* Εσωτερικό περιθώριο κάτω */
         }
 
+        /* Στυλ για τα μηνύματα του chat */
         .chat-message {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            margin-bottom: 10px;
+            display: flex;  /* Χρήση flexbox για διάταξη */
+            flex-direction: column;  /* Καθορισμός διάταξης στηλών */
+            align-items: flex-start;  /* Ευθυγράμμιση αριστερά */
+            margin-bottom: 10px;  /* Κάτω περιθώριο */
         }
 
+        /* Στυλ για τα μηνύματα του χρήστη */
         .chat-message.user {
-            align-items: flex-end;
+            align-items: flex-end;  /* Ευθυγράμμιση δεξιά */
         }
 
+        /* Στυλ για το περιεχόμενο των μηνυμάτων */
         .message-content {
-            background-color: #EAF2F8;
-            color: black;
-            padding: 10px;
-            border-radius: 10px;
-            max-width: 70%;
+            background-color: #EAF2F8;  /* Χρώμα φόντου του μηνύματος */
+            color: black;  /* Χρώμα κειμένου */
+            padding: 10px;  /* Εσωτερικό περιθώριο */
+            border-radius: 10px;  /* Στρογγυλεμένες γωνίες */
+            max-width: 70%;  /* Μέγιστο πλάτος */
         }
 
+        /* Στυλ για το περιεχόμενο των μηνυμάτων του χρήστη */
         .message-content.user {
-            background-color: #D4E6F1;
+            background-color: #D4E6F1;  /* Χρώμα φόντου για μηνύματα χρήστη */
+            margin-right: 15px;  /* Δεξί περιθώριο */
         }
 
+        /* Στυλ για τα timestamps των μηνυμάτων */
         .message-timestamp {
-            font-size: 0.7rem;
-            color: #EAF2F8;
-            margin-top: 5px;
+            font-size: 0.7rem;  /* Μέγεθος γραμματοσειράς */
+            color: #555;  /* Χρώμα κειμένου */
+            margin-top: 5px;  /* Άνω περιθώριο */
+            text-align: left;  /* Ευθυγράμμιση αριστερά */
+            padding-left: 2%;  /* Αριστερό εσωτερικό περιθώριο */
         }
 
+        /* Στυλ για το timestamp των μηνυμάτων του χρήστη */
+        .chat-message.user .message-timestamp {
+            text-align: right;  /* Ευθυγράμμιση δεξιά */
+            padding-left: 0;  /* Καταργεί το αριστερό εσωτερικό περιθώριο */
+            padding-right: 4.5%;  /* Δεξί εσωτερικό περιθώριο */
+        }
+
+        /* Στυλ για τη φόρμα εισόδου */
         .input-form {
-            display: flex;
-            width: 100%;
-            align-items: center;
-            margin-top: 10px;
+            display: flex;  /* Χρήση flexbox για διάταξη */
+            width: 100%;  /* Πλάτος φόρμας */
+            align-items: center;  /* Κεντράρισμα περιεχομένου */
+            margin-top: 10px;  /* Άνω περιθώριο */
         }
 
+        /* Στυλ για το πεδίο κειμένου εισόδου */
         textarea {
-            width: 85%;
-            padding: 10px;
-            border: 1px solid #D4E6F1;
-            border-radius: 5px;
-            resize: vertical;
-            background-color: #EAF2F8;
-            color: black;
+            width: 85%;  /* Πλάτος textarea */
+            padding: 10px;  /* Εσωτερικό περιθώριο */
+            border: 1px solid #D4E6F1;  /* Όριο */
+            border-radius: 5px;  /* Στρογγυλεμένες γωνίες */
+            resize: vertical;  /* Επιτρέπει την κατακόρυφη αλλαγή μεγέθους */
+            background-color: #EAF2F8;  /* Χρώμα φόντου */
+            color: black;  /* Χρώμα κειμένου */
         }
 
+        /* Στυλ για το κουμπί */
         .btn {
-            background-color: #EAF2F8;
-            color: black;
-            padding: 10px 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-left: 10px;
+            background-color: #EAF2F8;  /* Χρώμα φόντου κουμπιού */
+            color: black;  /* Χρώμα κειμένου */
+            padding: 10px 10px;  /* Εσωτερικό περιθώριο */
+            border: none;  /* Χωρίς όριο */
+            border-radius: 5px;  /* Στρογγυλεμένες γωνίες */
+            cursor: pointer;  /* Εμφάνιση χεριού κατά το hover */
+            margin-left: 10px;  /* Αριστερό περιθώριο */
         }
 
+        /* Στυλ για το κουμπί αποστολής */
         .btn-primary {
-            background-color: #EAF2F8;
+            background-color: #EAF2F8;  /* Χρώμα φόντου για το κουμπί αποστολής */
         }
 
-        @media screen and (max-width: 768px) {
-            .chat-container {
-                width: 90%;
-                height: 60vh;
-            }
-
-            .input-form {
-                flex-direction: column;
-            }
-
-            textarea {
-                width: 100%;
-                margin-bottom: 10px;
-            }
-
-            .btn {
-                margin-left: 0;
-                width: 100%;
-            }
+        /* Στυλ για τις αριθμημένες λίστες */
+        ol {
+            margin-left: 20px;  /* Αριστερό περιθώριο */
+            padding-left: 20px;  /* Αριστερό εσωτερικό περιθώριο */
         }
+
+        /* Στυλ για τα στοιχεία λίστας */
+        li {
+            margin-bottom: 10px;  /* Κάτω περιθώριο */
+        }
+
     </style>
 </head>
 <body>
 
     <div class="top-right">
-        <h4>Ακαδημαϊκός Βοηθός</h4>
+        <h4>Ακαδημαϊκός Βοηθός</h4> <!-- Τίτλος του chatbot -->
     </div>
 
     <div class="header-container">
         <div class="image-demo">
+            <!-- Εικόνα λογοτύπου πανεπιστημίου -->
             <img src="{{ url_for('static', path='images/logo.png') }}" alt="Logo" height="100">
         </div>
         <div class="university-name">
@@ -185,39 +207,96 @@
         </div>
     </div>
 
-    <div class="chat-container">
-        <div class="chat-box">
-            {% for response in chat_responses %}
+    <div class="chat-container"> <!-- Container για το chat -->
+        <div class="chat-box"> <!-- Πλαίσιο εμφάνισης μηνυμάτων -->
+            {% for response in chat_responses %}  <!-- Επανάληψη για κάθε απάντηση του chatbot -->
+              <!-- Ορισμός της κλάσης για το μήνυμα -->
             <div class="chat-message {% if loop.index % 2 == 0 %}user{% endif %}">
-                <div class="message-content {% if loop.index % 2 == 0 %}user{% endif %}">{{ response }}</div>
-                <div class="message-timestamp">09:45 PM</div>
+                <!-- Ορισμός της κλάσης για το περιεχόμενο του μηνύματος -->
+                <div class="message-content {% if loop.index % 2 == 0 %}user{% endif %}">
+                    {{ response.message | safe }}  <!-- Εμφάνιση του μηνύματος -->
+                </div>
+                <div class="message-timestamp"> <!-- Περιοχή εμφάνισης timestamp -->
+                    {{ response.timestamp }}  <!-- Εμφάνιση της ημερομηνίας και ώρας -->
+                </div>
             </div>
-            {% endfor %}
+            {% endfor %} <!-- Τέλος επανάληψης -->
         </div>
-        <form action="/" method="POST" class="input-form">
-            <textarea placeholder="Κάνε μου μια ερώτηση" name="user_input" rows="3"></textarea>
-            <button class="btn btn-primary" type="submit">Send</button>
+
+        <div id="loading-message" style="display: none; color: #555; margin-top: 10px;">
+            Γίνεται αναζήτηση της απάντησης... <!-- Μήνυμα φόρτωσης της απάντησης -->
+        </div>
+
+        <form class="input-form" method="post"> <!-- Φόρμα για την είσοδο του χρήστη -->
+            <textarea name="user_input" placeholder="Πληκτρολογήστε εδώ!" rows="3"></textarea> <!-- Πεδίο κειμένου για εισαγωγή μηνύματος -->
+            <!-- Κουμπί αποστολής -->
+            <button class="btn btn-primary" type="submit">Αποστολή</button>
         </form>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+    <script>
+        // Χρήση JavaScript για ρυθμίσεις υποβολής της φόρμας
+        document.querySelector('form').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Αποτροπή της προεπιλεγμένης υποβολής φόρμας
+            // Αποθήκευση της εισόδου του χρήστη
+            let userInput = document.querySelector('textarea').value;
+            if (!userInput.trim()) return; // Έλεγχος αν το πεδίο είναι κενό
 
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyC1taU5EwWas2l_GlkFoGRmoKo6blpvC0U",
-            authDomain: "chatbot-amalia.firebaseapp.com",
-            projectId: "chatbot-amalia",
-            storageBucket: "chatbot-amalia.appspot.com",
-            messagingSenderId: "1040702886339",
-            appId: "1:1040702886339:web:020843dd4e3e8cc4a6ad76",
-            measurementId: "G-B4FJL4EYGL"
-        };
+            const chatBox = document.querySelector('.chat-box'); // Αναφορά στο chat box
+               // Λήψη τρέχουσας ημερομηνίας και ώρας
+            const currentTime = new Date().toLocaleString();
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
+            // Δημιουργία του μηνύματος του χρήστη
+            const userMessage = `
+                <div class="chat-message user">
+                    <div class="message-content user">${userInput}</div>
+                    <div class="message-timestamp">${currentTime}</div>
+                </div>
+            `;
+
+
+              // Προσθήκη του μηνύματος του χρήστη στο chat box
+            chatBox.innerHTML += userMessage;
+              // Εκκαθάριση του πεδίου κειμένου εισόδου
+            document.querySelector('textarea').value = '';
+            // Αναφορά στο μήνυμα φόρτωσης
+            const loadingMessage = document.getElementById('loading-message');
+            loadingMessage.style.display = 'block'; // Εμφάνιση του μηνύματος φόρτωσης
+            const formData = new FormData(); // Δημιουργία νέας φόρμας δεδομένων
+            formData.append('user_input', userInput); // Προσθήκη της εισόδου του χρήστη
+
+            try {
+                // Αποστολή αιτήματος για λήψη απάντησης από το server
+                const response = await fetch('/get-response', {
+                    method: 'POST',
+                    body: formData // Σώμα αιτήματος με δεδομένα χρήστη
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok'); // Έλεγχος για σφάλμα δικτύου
+                }
+
+                const botResponse = await response.text(); // Λήψη της απάντησης του chatbot
+
+                loadingMessage.style.display = 'none'; // Απόκρυψη του μηνύματος φόρτωσης
+
+                // Δημιουργία του μηνύματος του chatbot
+                const botMessage = `
+                    <div class="chat-message">
+                        <div class="message-content">${botResponse}</div>
+                        <div class="message-timestamp">${new Date().toLocaleString()}</div>
+                    </div>
+                `;
+                    // Προσθήκη του μηνύματος του chatbot στο chat box
+                chatBox.innerHTML += botMessage;
+
+                chatBox.scrollTop = chatBox.scrollHeight; // Κύλιση στο κάτω μέρος του chat box
+            } catch (error) {
+                console.error('Error:', error); // Καταγραφή σφάλματος
+                loadingMessage.style.display = 'none'; // Απόκρυψη του μηνύματος φόρτωσης
+            }
+        });
     </script>
+
 </body>
 </html>
