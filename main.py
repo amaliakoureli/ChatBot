@@ -11,7 +11,7 @@ from openai import OpenAI  # Βιβλιοθήκη OpenAI για πρόσβαση
 import uvicorn  # uvicorn για την εκκίνηση του FastAPI server.
 from datetime import datetime  # datetime για τη διαχείριση και μορφοποίηση ημερομηνιών.
 
-# client = OpenAI(api_key="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")  # Ρυθμίσεις OpenAI κλειδιού API.
+# Ρυθμίσεις OpenAI κλειδιού API -  This key is deleted!!! .
 client = OpenAI(api_key="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")  # Ρυθμίσεις OpenAI κλειδιού API.
 
 app = FastAPI() #  Δημιουργία FastAPI εφαρμογής.
@@ -35,7 +35,7 @@ chat_log = [{
 chat_responses = [
     {
         'message': "Γεια σας! Πως μπορώ να σας βοηθήσω;",
-        'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S") # Φόρμα ημερομηνίας και ώρας.
+        'timestamp': datetime.now().strftime("%d-%m-%Y %H:%M:%S") # Φόρμα ημερομηνίας και ώρας.
     }
 ]
 
@@ -83,14 +83,14 @@ def format_response(bot_response: str):
 # Συνάρτηση που σαρώνει περιεχόμενο από τις ιστοσελίδες.
 def scrape_website():
     urls = [
-        "https://www.cs.ihu.gr/contact.xhtml",
-        "https://www.cs.ihu.gr/faculty.xhtml",
-        "https://www.cs.ihu.gr/special_staff.xhtml",
-        "https://www.cs.ihu.gr/affiliate.xhtml",
-        "https://www.cs.ihu.gr/omotimoi.xhtml",
-        "https://www.cs.ihu.gr/announcements.xhtml",
-        "https://www.cs.ihu.gr/dissertation.xhtml",
-        "https://www.cs.ihu.gr/courses.xhtml"
+        "https://www.cs.duth.gr/contact.xhtml",
+        "https://www.cs.duth.gr/faculty.xhtml",
+        "https://www.cs.duth.gr/special_staff.xhtml",
+        "https://www.cs.duth.gr/affiliate.xhtml",
+        "https://www.cs.duth.gr/omotimoi.xhtml",
+        "https://www.cs.duth.gr/announcements.xhtml",
+        "https://www.cs.duth.gr/dissertation.xhtml",
+        "https://www.cs.duth.gr/courses.xhtml"
     ]
     content = ""  # Αρχικό κενό περιεχόμενο.
     for url in urls:  # Για κάθε URL στη λίστα.
@@ -105,7 +105,7 @@ async def chat_page(request: Request):
     if len(chat_responses) == 0:  # Αν δεν υπάρχουν απαντήσεις, προσθέτει μία.
         chat_responses.append({
             'message': "Γεια σας! Πως μπορώ να σας βοηθήσω;",
-            'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            'timestamp': datetime.now().strftime("%d-%m-%Y %H:%M:%S")
         })
     return templates.TemplateResponse("layout.html", {"request": request, "chat_responses": chat_responses})
 
@@ -113,7 +113,7 @@ async def chat_page(request: Request):
 # Route για την αποστολή και επεξεργασία απάντησης από τον chatbot.
 @app.post("/get-response", response_class=HTMLResponse)
 async def chat(request: Request, user_input: Annotated[str, Form()]):
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # Τρέχουσα ώρα.
+    current_time = datetime.now().strftime("%d-%m-%Y %H:%M:%S")  # Τρέχουσα ώρα.
     chat_log.append({'role': 'user', 'content': user_input})  # Προσθήκη εισόδου χρήστη στο chat log.
     website_content = scrape_website()  # Scraping περιεχομένου από τις σελίδες.
 
